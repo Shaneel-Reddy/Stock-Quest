@@ -31,7 +31,7 @@ export default function Portfolio() {
 
   const handleAssetSubmit = async () => {
     try {
-      const Stock_key = ""; // import.meta.env.VITE_DASHSTOCKNAPI_KEY;
+      const Stock_key = ""; //import.meta.env.VITE_DASHSTOCKNAPI_KEY;
       const apiUrl = `https://api.twelvedata.com/time_series?symbol=${ticker}&interval=1day&outputsize=7&apikey=${Stock_key}`;
 
       const response = await fetch(apiUrl);

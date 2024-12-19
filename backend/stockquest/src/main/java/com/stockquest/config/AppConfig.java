@@ -15,7 +15,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.Arrays;
 import java.util.Collections;
-
+import org.springframework.web.client.RestTemplate;
 @Configuration
 @EnableWebSecurity
 public class AppConfig {
@@ -56,6 +56,10 @@ public class AppConfig {
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 
 }

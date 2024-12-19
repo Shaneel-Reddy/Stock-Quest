@@ -10,15 +10,13 @@ import java.util.Date;
 
 public class JwtProvider {
 
-    // Using the static key for signing and verifying the token
     static SecretKey key = Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
 
-    // Method to generate the JWT token from authentication object
     public static String generateToken(Authentication auth) {
         return Jwts.builder()
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + 86400000)) // 1 day expiration
-                .claim("email", auth.getName()) // Storing email in token claims
+                .setExpiration(new Date(new Date().getTime() + 86400000)) 
+                .claim("email", auth.getName()) 
                 .signWith(key)
                 .compact();
     }

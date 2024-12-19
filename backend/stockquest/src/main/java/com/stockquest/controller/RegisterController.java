@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.stockquest.exception.ConflictException;
 
 @RestController
 @RequestMapping("/auth")
@@ -31,12 +32,11 @@ public class RegisterController {
     private RegisterServiceImp customUserDetails;
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> createUserHandler(@RequestBody Register user) throws Exception {
-        Register isUserExist=userRepository.findByEmail(user.getEmail());
-        if(isUserExist!=null)
-        {
-            throw new Exception("email already exist with another account");
+        Register isUserExist = userRepository.findByEmail(user.getEmail());
+        if (isUserExist != null) {
+            throw new ConflictException("Email already exists with another account.");
         }
-        Register createdUser=new Register();
+        Register createdUser = new Register();
         createdUser.setUsername(user.getUsername());
         createdUser.setPassword(passwordEncoder.encode(user.getPassword()));
         createdUser.setEmail(user.getEmail());
@@ -44,17 +44,19 @@ public class RegisterController {
         createdUser.setLastname(user.getLastname());
         createdUser.setAddress(user.getAddress());
         createdUser.setPhonenumber(user.getPhonenumber());
-        Register saveduser=userRepository.save(createdUser);
-
-        Authentication authentication=new UsernamePasswordAuthenticationToken(user.getEmail(),user.getPassword());
+        
+        Register savedUser = userRepository.save(createdUser);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt= JwtProvider.generateToken(authentication);
-        AuthResponse res=new AuthResponse();
-        res.setMessage("signup success");
+        
+        String jwt = JwtProvider.generateToken(authentication);
+        AuthResponse res = new AuthResponse();
+        res.setMessage("Signup success");
         res.setJwt(jwt);
+        
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
+
 
     @PostMapping("/signin")
     public ResponseEntity<AuthResponse> signin(@RequestBody LoginRequest loginRequest)
