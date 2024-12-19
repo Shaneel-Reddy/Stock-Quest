@@ -1,0 +1,119 @@
+.scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #93C5FD;
+    border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: #60A5FA;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.welcomechat {
+    color: transparent;
+    background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.chat-container {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    height: 88vh;
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    border: 1px solid #8f6f3f;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.chatcard {
+    font-family: 'Arima', serif;
+    font-size: 1em;
+    color: transparent;
+    background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 700;
+    text-align: center;
+    margin: 20px 10px;
+    padding: 20px;
+    line-height: 1.4;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.chat-history {
+    overflow-y: auto;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    scrollbar-width: thin;
+}
+
+.chat-history .question {
+    margin: 10px 0;
+    color: #b8a14f;
+}
+
+.chat-history .answer {
+    margin: 10px 0;
+    color: #8f6f3f;
+}
+
+.loading {
+    color: #fff;
+    font-style: italic;
+}
+
+.chat-form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 3px;
+    color: transparent;
+    background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 700;
+}
+
+.chat-form textarea {
+    width: 100%;
+    padding: 3px;
+    border: none;
+    border-radius: 4px;
+    resize: none;
+    background-color: black;
+    color: white;
+}
+
+.chat-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    background-color: #8f6f3f;
+}
+
+.chat-form button:disabled {
+    background-color: #ccc;
+}

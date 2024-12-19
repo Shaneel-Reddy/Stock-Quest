@@ -1,0 +1,120 @@
+.market1 {
+    color: #E2E2B6;
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    font-size: 2em;
+}
+
+.quote {
+    font-family: 'Arima', serif;
+    font-size: 0.6em;
+    color: transparent;
+    background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 700;
+    text-align: center;
+    margin: 40px 20px;
+    padding: 20px;
+    line-height: 1.4;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quote:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 25px rgba(255, 215, 0, 0.5);
+}
+
+.carousel {
+    margin-bottom: 20px;
+    background-color: #121212;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.carousel-inner {
+    max-height: 500px;
+}
+
+.carousel-inner img {
+    max-height: 500px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.market {
+    color: white;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    padding: 20px;
+    background-color: #121212;
+    gap: 16px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+
+.d2,
+.d3 {
+    padding: 20px;
+    border-radius: 5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+.d2:hover,
+.d3:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    padding: 10px;
+    text-align: left;
+    color: #E0E0E0;
+    background-color: #1e1e1e;
+}
+
+.table th {
+    color: transparent;
+    background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-weight: bold;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #2b2b2b;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(18, 18, 18, 0.5);
+    border-radius: 50%;
+}
+
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+    background-color: rgba(18, 18, 18, 0.7);
+}

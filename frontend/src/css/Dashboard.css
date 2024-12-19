@@ -1,0 +1,119 @@
+.dashboard {
+    background-color: black;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    height: 100vh;
+}
+
+.timedisplay {
+    grid-column: 1/2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+}
+
+.welcome-message {
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+    flex-grow: 0;
+}
+
+.chartdisplay {
+    width: 100%;
+    height: 50%;
+    max-width: 800px;
+    margin: 20px 0;
+    flex-grow: 1;
+}
+
+.clock1 {
+    margin-top: 40px;
+    width: 100%;
+    text-align: center;
+    flex-grow: 0;
+}
+
+.watchlist {
+    grid-column: 2/3;
+    background-color: black;
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.watchlist-heading {
+    font-family: 'Arima', serif;
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #b8a14f;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.add-stock {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.watchlist-input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #b8a14f;
+    background-color: #333;
+    color: white;
+    outline: none;
+}
+
+.watchlist-input::placeholder {
+    color: #b8a14f;
+    opacity: 1;
+}
+
+.watchlist-input:focus {
+    border-color: #8f6f3f;
+    box-shadow: 0 0 5px rgba(143, 111, 63, 0.5);
+}
+
+.add-button {
+    padding: 8px 16px;
+    background-color: #b8a14f;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-button:hover {
+    background-color: #8f6f3f;
+}
+
+.watchlist-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.watchlist-table th,
+.watchlist-table td {
+    padding: 10px;
+    border: 1px solid #444;
+    text-align: left;
+}
+
+.watchlist-table th {
+    background-color: black;
+    color: #b8a14f;
+}
+
+.watchlist-table td {
+    background-color: #222;
+}
