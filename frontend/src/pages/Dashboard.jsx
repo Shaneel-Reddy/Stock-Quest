@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import StockChart from "../components/StockChart";
 import Clock from "../components/Clock";
 import "../css/Dashboard.css";
+import axios from "axios";
 
 const Stock_key = import.meta.env.VITE_DASHSTOCKNAPI_KEY;
 
@@ -9,11 +10,17 @@ export default function Dashboard() {
   const [symbol, setSymbol] = useState("");
   const [stockData, setStockData] = useState(null);
   const [error, setError] = useState(null);
+  const [totalValue, setTotalValue] = useState(0);
+
+  const API_BASE_URL = "http://localhost:7000/api/portfolio";
+  const token = localStorage.getItem("jwt");
 
   const handleSymbolChange = (e) => {
     setSymbol(e.target.value);
   };
-
+  useEffect(() => {
+    fetchTotalValue();
+  }, []);
   const fetchStockData = async () => {
     if (!symbol) return;
     try {
@@ -31,7 +38,19 @@ export default function Dashboard() {
       setError("Error fetching data.");
     }
   };
-
+  const fetchTotalValue = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/portfolioValue`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setTotalValue(response.data);
+    } catch (error) {
+      console.error("Error fetching total value:", error);
+      alert("Failed to load total value. Please try again.");
+    }
+  };
   return (
     <div className="dashboard">
       <div className="timedisplay">
@@ -42,7 +61,11 @@ export default function Dashboard() {
             capitalize on those opportunities and make your next big move.
           </p>
         </div>
-
+        <div className="portfolio-value">
+          <h3>My Portfolio</h3>
+          <h3>Total Value</h3>
+          <h3>${totalValue}</h3>
+        </div>
         <div className="clock1">
           <h2 className="text-white">Major Market Time Zones</h2>
           <Clock />
@@ -50,7 +73,7 @@ export default function Dashboard() {
       </div>
 
       <div className="watchlist">
-        <h2 className="watchlist-heading text-white">TickerView</h2>
+        <h2 className="watchlist-heading">TickerView</h2>
 
         <div className="add-stock text-white">
           <input

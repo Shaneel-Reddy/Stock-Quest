@@ -42,7 +42,6 @@
     line-height: 1.4;
     box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
     border-radius: 10px;
-    border-radius: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 250px;
 }
@@ -83,22 +82,6 @@
     margin-top: 20px;
 }
 
-
-
-.asset-name {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.price-change.negative {
-    color: red;
-}
-
-.profit {
-    color: #28a745;
-}
-
 .assets-table {
     width: 100%;
     border-collapse: collapse;
@@ -135,43 +118,78 @@
 }
 
 .right-column {
-
-    background-color: #000000;
+    width: 100%;
+    grid-column: 2/3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
+    font-family: 'Arima', serif;
+}
+
+.total-value-box,
+.chart-box,
+.buy-stocks {
+    background-color: #000000;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 0.6em;
+    color: transparent;
+    background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 700;
+    text-align: center;
+    margin: 40px 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    line-height: 1.4;
+}
+
+.buy-stocks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-height: 100%;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+}
+
+.total-value-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-height: 100%;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+}
+
+.chart-box {
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+}
+
+.chartdisplay {
+    min-height: 300px;
 }
 
 .right-column h2 {
+    font-size: 1rem;
     margin-bottom: 10px;
+    text-align: center;
 }
 
-.expense-history {
-    list-style-type: none;
-    margin-left: 20px;
+.right-column h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
 }
 
-.expense-history li {
-    padding: 5px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-.icon {
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.icon:hover {
-    color: #d9534f;
-}
-
-.icon.edit {
-    color: #5bc0de;
-    margin-right: 50px;
-}
-
-.icon.delete {
-    color: #d9534f;
+.total-value-box:hover,
+.chart-box:hover,
+.buy-stocks:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 25px rgba(255, 215, 0, 0.5);
 }
 
 .modal {
@@ -192,7 +210,6 @@
     width: 300px;
     text-align: center;
     background-image: linear-gradient(45deg, #4a3d0d, #a87529, #706040);
-
 }
 
 .modal-content h2 {
@@ -204,6 +221,7 @@
     padding: 8px;
     margin: 10px 0;
     background-color: #000000;
+    color: white;
 }
 
 .submit-btn {
@@ -247,4 +265,99 @@
 .delete-asset:hover,
 .edit-asset:hover {
     text-decoration: underline;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .portfolio-page {
+        gap: 50px;
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .portfolio-page {
+        grid-template-columns: 1fr;
+    }
+
+    .right-column {
+        grid-column: 1;
+    }
+
+    .total-value-box,
+    .chart-box,
+    .buy-stocks {
+        margin: 20px 0;
+        height: auto;
+    }
+
+    .chart-box {
+        min-height: 350px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .portfolio-page {
+        padding: 10px;
+    }
+
+    .assets-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .assets-table th,
+    .assets-table td {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+
+    .edit-asset,
+    .delete-asset,
+    .visualize {
+        padding: 8px;
+        margin: 2px;
+        font-size: 20px;
+    }
+
+    .chart-box {
+        min-height: 300px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .modal-content {
+        width: 90%;
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .modal-content input {
+        font-size: 16px;
+    }
+
+    .buy-stocks {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .right-column h2 {
+        font-size: 0.9rem;
+    }
+
+    .right-column h3 {
+        font-size: 1.5rem;
+    }
+
+    .portfolio-item {
+        width: calc(100% - 40px);
+        margin: 20px;
+    }
+
+    .total-value-box,
+    .chart-box {
+        margin: 20px 10px;
+    }
 }

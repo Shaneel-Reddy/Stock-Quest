@@ -8,7 +8,7 @@ export default function Portfolio() {
   const [isAssetModalOpen, setIsAssetModalOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [assets, setAssets] = useState([]);
-
+  const [totalValue, setTotalValue] = useState(0);
   const [stockData, setStockData] = useState(null);
   const [stockName, setStockName] = useState("");
   const [buyPrice, setBuyPrice] = useState("");
@@ -21,6 +21,7 @@ export default function Portfolio() {
 
   useEffect(() => {
     fetchAssets();
+    fetchTotalValue();
   }, []);
 
   const fetchAssets = async () => {
@@ -36,7 +37,19 @@ export default function Portfolio() {
       alert("Failed to load assets. Please try again.");
     }
   };
-
+  const fetchTotalValue = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/portfolioValue`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setTotalValue(response.data);
+    } catch (error) {
+      console.error("Error fetching total value:", error);
+      alert("Failed to load total value. Please try again.");
+    }
+  };
   const handleAddAssetClick = () => {
     setIsEditMode(false);
     setIsAssetModalOpen(true);
@@ -86,13 +99,6 @@ export default function Portfolio() {
       });
 
       setAssets([...assets, response.data]);
-      setExpenseHistory([
-        ...expenseHistory,
-        {
-          description: `Bought ${assetQuantity} of ${stockName}`,
-          amount: buyPrice * assetQuantity,
-        },
-      ]);
 
       handleAssetModalClose();
     } catch (error) {
@@ -172,10 +178,8 @@ export default function Portfolio() {
     <div className="portfolio-page">
       <div className="left-column">
         <div className="assets-section">
-          <h2>Your Assets</h2>
-          <button className="buy-stocks" onClick={handleAddAssetClick}>
-            Invest Stocks
-          </button>
+          <h2 style={{ textAlign: "center" }}>Your Assets</h2>
+
           <table className="assets-table">
             <thead>
               <tr>
@@ -226,13 +230,24 @@ export default function Portfolio() {
               ))}
             </tbody>
           </table>
+          {stockData && (
+            <div className="chart-box">
+              <div className="chartdisplay">
+                <StockChart stockData={stockData} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
       <div className="right-column">
-        <h2>Graphs!</h2>
-        <div className="chartdisplay">
-          <StockChart stockData={stockData} />
+        <div className="total-value-box">
+          <h2>My Portfolio</h2>
+          <h2>Total Value</h2>
+          <h3>${totalValue}</h3>
+        </div>
+        <div className="buy-stocks" onClick={handleAddAssetClick}>
+          <h2>Invest Stocks</h2>
         </div>
       </div>
 
