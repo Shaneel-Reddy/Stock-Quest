@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ element }) => {
-  const isAuthenticated = localStorage.getItem("jwt"); // Check if the user has a JWT token
+  const isAuthenticated = localStorage.getItem("jwt");
 
   return isAuthenticated ? element : <Navigate to="/" />;
 };

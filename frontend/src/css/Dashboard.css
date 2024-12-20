@@ -16,13 +16,86 @@
 }
 
 .welcome-message {
+    font-family: 'Arima', serif;
+    color: transparent;
+    background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
+    /* Gradient with your colors */
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 700;
     text-align: center;
-    margin-bottom: 20px;
-    color: white;
-    flex-grow: 0;
+    margin: 40px 20px;
+    padding: 20px;
+    line-height: 1.4;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+    /* Golden shadow */
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #0000;
+    /* Fall back background color */
 }
 
+.welcome-message h1 {
+    color: #b8a14f;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.welcome-message p {
+    color: #b8a14f;
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+.welcome-message:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(255, 215, 0, 0.5);
+}
+
+.welcome-message p:first-child {
+    color: #b8a14f;
+    font-weight: bold;
+}
+
+.welcome-message p:last-child {
+    color: #b8a14f;
+}
+
+.typing-effect {
+    font-family: 'Arima', serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #b8a14f;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 1px solid #b8a14f;
+    width: 0;
+    animation: typing 3s steps(25) 1s forwards, blink-caret 0.75s step-end 3s forwards;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+    50% {
+        border-color: transparent;
+    }
+
+    to {
+        border-color: transparent;
+    }
+}
+
+
 .chartdisplay {
+    grid-column: 2/3;
     width: 100%;
     height: 50%;
     max-width: 800px;
@@ -61,6 +134,8 @@
     gap: 10px;
     margin-bottom: 20px;
 }
+
+
 
 .watchlist-input {
     flex: 1;
@@ -116,4 +191,24 @@
 
 .watchlist-table td {
     background-color: #222;
+}
+
+.text-animated {
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
 }

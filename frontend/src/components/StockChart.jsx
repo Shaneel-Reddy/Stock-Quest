@@ -26,23 +26,45 @@ export default function StockChart({ stockData }) {
     return <div></div>;
   }
 
+  const sortedValues = [...stockData.values].sort(
+    (a, b) => new Date(a.datetime) - new Date(b.datetime)
+  );
+  const dateOptions = { month: "short", day: "numeric" };
+  const formattedLabels = sortedValues.map((entry) =>
+    new Date(entry.datetime).toLocaleDateString("en-US", dateOptions)
+  );
   const chartData = {
-    labels: stockData.values.map((entry) => entry.datetime),
+    labels: formattedLabels,
     datasets: [
       {
         label: "Stock Price (Close)",
-        data: stockData.values.map((entry) => parseFloat(entry.close)),
-        fill: false,
-        borderColor: "rgb(75, 192, 192)",
-        tension: 0.1,
+        data: sortedValues.map((entry) => parseFloat(entry.close)),
+        fill: true,
+        backgroundColor: "rgba(184, 161, 79, 0.2)",
+        borderColor: "#b8a14f",
+        borderWidth: 2,
+        pointBackgroundColor: "#b8a14f",
+        pointBorderColor: "#fff",
+        pointHoverBackgroundColor: "#fff",
+        pointHoverBorderColor: "#b8a14f",
+        tension: 0.4,
       },
     ],
+  };
+
+  const options = {
+    plugins: {
+      legend: {
+        position: "top",
+        align: "end",
+      },
+    },
   };
 
   return (
     <div>
       <h2>{stockData.meta.symbol} Stock Price (Close)</h2>
-      <Line data={chartData} />
+      <Line data={chartData} options={options} />
     </div>
   );
 }

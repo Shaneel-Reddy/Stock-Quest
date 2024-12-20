@@ -1,20 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../css/Portfolio.css";
+import StockChart from "../components/StockChart";
 
+const Stock_key = import.meta.env.VITE_DASHSTOCKNAPI_KEY;
 export default function Portfolio() {
   const [isAssetModalOpen, setIsAssetModalOpen] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
   const [assets, setAssets] = useState([]);
-  const [expenseHistory, setExpenseHistory] = useState([]);
 
+  const [stockData, setStockData] = useState(null);
   const [stockName, setStockName] = useState("");
   const [buyPrice, setBuyPrice] = useState("");
   const [assetQuantity, setAssetQuantity] = useState("");
-  const [ticker, setTicker] = useState(""); // Renamed to Ticker
-  const [assetCurrentPrice, setAssetCurrentPrice] = useState("");
-  const [assetGainPercent, setAssetGainPercent] = useState("");
-  const [assetValue, setAssetValue] = useState("");
+  const [ticker, setTicker] = useState("");
+  const [editingIndex, setEditingIndex] = useState(null);
+
+  const API_BASE_URL = "http://localhost:7000/api/portfolio";
+  const token = localStorage.getItem("jwt");
+
+  useEffect(() => {
+    fetchAssets();
+  }, []);
+
+  const fetchAssets = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/allAssets`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setAssets(response.data);
+    } catch (error) {
+      console.error("Error fetching assets:", error);
+      alert("Failed to load assets. Please try again.");
+    }
+  };
 
   const handleAddAssetClick = () => {
+    setIsEditMode(false);
+    setIsAssetModalOpen(true);
+  };
+
+  const handleEditAsset = (index) => {
+    const asset = assets[index];
+    setStockName(asset.stockName);
+    setBuyPrice(asset.buyPrice);
+    setAssetQuantity(asset.quantity);
+    setTicker(asset.ticker);
+    setEditingIndex(index);
+    setIsEditMode(true);
     setIsAssetModalOpen(true);
   };
 
@@ -24,77 +59,113 @@ export default function Portfolio() {
     setBuyPrice("");
     setAssetQuantity("");
     setTicker("");
-    setAssetCurrentPrice("");
-    setAssetGainPercent("");
-    setAssetValue("");
+    setEditingIndex(null);
   };
 
   const handleAssetSubmit = async () => {
-    try {
-      const Stock_key = ""; //import.meta.env.VITE_DASHSTOCKNAPI_KEY;
-      const apiUrl = `https://api.twelvedata.com/time_series?symbol=${ticker}&interval=1day&outputsize=7&apikey=${Stock_key}`;
-
-      const response = await fetch(apiUrl);
-      const stockData = await response.json();
-
-      if (stockData && stockData.values && stockData.values[0]) {
-        const currentPrice = parseFloat(stockData.values[0].close);
-        const purchasePrice = parseFloat(buyPrice);
-        const quantity = parseFloat(assetQuantity);
-        const expenseAmount = purchasePrice * quantity;
-
-        const gainPercent = (
-          ((currentPrice - purchasePrice) / purchasePrice) *
-          100
-        ).toFixed(2);
-        const value = (currentPrice * quantity).toFixed(2);
-
-        const newAsset = {
-          stockName: stockName,
-          ticker: ticker,
-          buyPrice: purchasePrice.toFixed(2),
-          quantity: quantity.toFixed(2),
-          currentPrice: currentPrice.toFixed(2),
-          gainPercent: `${gainPercent}%`,
-          value: `${value}`,
-        };
-
-        setAssets([...assets, newAsset]);
-
-        setExpenseHistory([
-          ...expenseHistory,
-          {
-            description: `Bought ${quantity} of ${stockName}`,
-            amount: expenseAmount,
-          },
-        ]);
-
-        handleAssetModalClose();
-      } else {
-        console.error("Invalid response from stock API.");
-        alert("Unable to fetch stock data. Please check the asset name.");
-      }
-    } catch (error) {
-      console.error("Error fetching stock data:", error);
-      alert("An error occurred while fetching stock data.");
+    if (isEditMode) {
+      await handleUpdateAsset();
+    } else {
+      await handleAddNewAsset();
     }
   };
 
-  const handleEditAsset = (index) => {
-    const assetToEdit = assets[index];
-    setStockName(assetToEdit.stockName);
-    setBuyPrice(assetToEdit.buyPrice);
-    setAssetQuantity(assetToEdit.quantity);
-    setTicker(assetToEdit.ticker);
-    setAssetCurrentPrice(assetToEdit.currentPrice);
-    setAssetGainPercent(assetToEdit.gainPercent);
-    setAssetValue(assetToEdit.value);
-    setIsAssetModalOpen(true);
+  const handleAddNewAsset = async () => {
+    try {
+      const newAsset = {
+        stockName,
+        ticker,
+        quantity: parseFloat(assetQuantity),
+        buyPrice: parseFloat(buyPrice),
+      };
+
+      const response = await axios.post(`${API_BASE_URL}/addAsset`, newAsset, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setAssets([...assets, response.data]);
+      setExpenseHistory([
+        ...expenseHistory,
+        {
+          description: `Bought ${assetQuantity} of ${stockName}`,
+          amount: buyPrice * assetQuantity,
+        },
+      ]);
+
+      handleAssetModalClose();
+    } catch (error) {
+      console.error("Error adding asset:", error);
+      alert("Failed to add asset. Please try again.");
+    }
   };
 
-  const handleDeleteAsset = (index) => {
-    const updatedAssets = assets.filter((_, i) => i !== index);
-    setAssets(updatedAssets);
+  const handleUpdateAsset = async () => {
+    try {
+      const updatedAsset = {
+        stockName,
+        ticker,
+        quantity: parseFloat(assetQuantity),
+        buyPrice: parseFloat(buyPrice),
+      };
+
+      const assetId = assets[editingIndex].id;
+
+      const response = await axios.put(
+        `${API_BASE_URL}/updateAsset/${assetId}`,
+        updatedAsset,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const updatedAssets = [...assets];
+      updatedAssets[editingIndex] = response.data;
+      setAssets(updatedAssets);
+
+      handleAssetModalClose();
+    } catch (error) {
+      console.error("Error updating asset:", error);
+      alert("Failed to update asset. Please try again.");
+    }
+  };
+
+  const handleDeleteAsset = async (index) => {
+    const assetToDelete = assets[index];
+    try {
+      await axios.delete(`${API_BASE_URL}/deleteAsset/${assetToDelete.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const updatedAssets = assets.filter((_, i) => i !== index);
+      setAssets(updatedAssets);
+    } catch (error) {
+      console.error("Error deleting asset:", error);
+      alert("Failed to delete asset. Please try again.");
+    }
+  };
+  const fetchStockData = async (index) => {
+    const symbol = assets[index].ticker;
+    if (!symbol) return;
+    try {
+      const response = await fetch(
+        `https://api.twelvedata.com/time_series?symbol=${symbol}&interval=1day&outputsize=7&apikey=${Stock_key}`
+      );
+      const data = await response.json();
+      if (data.values) {
+        setStockData(data);
+        setError(null);
+      } else {
+        setError("Invalid symbol or data not available.");
+      }
+    } catch (err) {
+      setError("Error fetching data.");
+    }
   };
 
   return (
@@ -111,11 +182,12 @@ export default function Portfolio() {
                 <th>Stock Name</th>
                 <th>Ticker</th>
                 <th>Buy Price</th>
-                <th>Quantity</th>
                 <th>Current Price</th>
-                <th>Gain %</th>
+                <th>Gain (%)</th>
+                <th>Quantity</th>
                 <th>Value</th>
                 <th>Actions</th>
+                <th>Visualize</th>
               </tr>
             </thead>
             <tbody>
@@ -124,9 +196,9 @@ export default function Portfolio() {
                   <td>{asset.stockName}</td>
                   <td>{asset.ticker}</td>
                   <td>{asset.buyPrice}</td>
-                  <td>{asset.quantity}</td>
                   <td>{asset.currentPrice}</td>
                   <td>{asset.gainPercent}</td>
+                  <td>{asset.quantity}</td>
                   <td>{asset.value}</td>
                   <td>
                     <button
@@ -142,6 +214,14 @@ export default function Portfolio() {
                       ✖
                     </button>
                   </td>
+                  <td>
+                    <button
+                      className="visualize"
+                      onClick={() => fetchStockData(index)}
+                    >
+                      👁️
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -150,20 +230,16 @@ export default function Portfolio() {
       </div>
 
       <div className="right-column">
-        <h2>Expense History</h2>
-        <ul className="expense-history">
-          {expenseHistory.map((expense, index) => (
-            <li key={index}>
-              {expense.description} - ${expense.amount.toFixed(2)}
-            </li>
-          ))}
-        </ul>
+        <h2>Graphs!</h2>
+        <div className="chartdisplay">
+          <StockChart stockData={stockData} />
+        </div>
       </div>
 
       {isAssetModalOpen && (
         <div className="modal">
           <div className="modal-content">
-            <h2>Add Asset</h2>
+            <h2>{isEditMode ? "Edit Asset" : "Add Asset"}</h2>
             <button className="close-btn" onClick={handleAssetModalClose}>
               &times;
             </button>
@@ -193,7 +269,7 @@ export default function Portfolio() {
             />
 
             <button className="submit-btn" onClick={handleAssetSubmit}>
-              Submit
+              {isEditMode ? "Update" : "Submit"}
             </button>
           </div>
         </div>
