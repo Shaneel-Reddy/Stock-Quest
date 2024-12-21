@@ -52,12 +52,11 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     padding: 20px;
-    background-color: #121212;
     gap: 16px;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    min-width: 100%;
 }
-
 
 .d2,
 .d3 {
@@ -65,7 +64,6 @@
     border-radius: 5px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 
 .d2:hover,
 .d3:hover {
@@ -117,4 +115,79 @@
 .carousel-control-prev:hover .carousel-control-prev-icon,
 .carousel-control-next:hover .carousel-control-next-icon {
     background-color: rgba(18, 18, 18, 0.7);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .market {
+        grid-template-columns: 1fr;
+        /* Stack the columns on smaller screens */
+        padding: 10px;
+        min-width: 100%;
+    }
+
+    .market1 {
+        font-size: 1.5em;
+        /* Reduce font size */
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .quote {
+        font-size: 0.8em;
+        /* Adjust font size for smaller screens */
+        margin: 20px;
+        padding: 15px;
+    }
+
+    .carousel-inner {
+        max-height: 400px;
+    }
+
+    .table th,
+    .table td {
+        padding: 8px;
+        /* Reduce padding for table cells */
+    }
+
+    .d2,
+    .d3 {
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .market1 {
+        font-size: 1.2em;
+        /* Further reduce font size */
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .quote {
+        font-size: 0.9em;
+        /* Slightly reduce font size for mobile */
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .carousel-inner {
+        max-height: 300px;
+    }
+
+    .table th,
+    .table td {
+        padding: 6px;
+        /* Smaller padding for mobile screens */
+    }
+
+    .market {
+        padding: 5px;
+        min-width: 100%;
+    }
+
+    .d2,
+    .d3 {
+        padding: 10px;
+    }
 }

@@ -90,6 +90,7 @@
     border: 1px solid #706040;
     border-radius: 5px;
     overflow: hidden;
+
 }
 
 .assets-table th,
@@ -267,7 +268,6 @@
     text-decoration: underline;
 }
 
-/* Responsive Design */
 @media screen and (max-width: 1200px) {
     .portfolio-page {
         gap: 50px;

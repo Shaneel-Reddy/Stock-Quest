@@ -11,6 +11,7 @@ export default function Dashboard() {
   const [stockData, setStockData] = useState(null);
   const [error, setError] = useState(null);
   const [totalValue, setTotalValue] = useState(0);
+  const [assets, setAssets] = useState([]);
 
   const API_BASE_URL = "http://localhost:7000/api/portfolio";
   const token = localStorage.getItem("jwt");
@@ -18,9 +19,25 @@ export default function Dashboard() {
   const handleSymbolChange = (e) => {
     setSymbol(e.target.value);
   };
+
   useEffect(() => {
+    fetchAssets();
     fetchTotalValue();
   }, []);
+
+  const fetchAssets = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/allAssets`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setAssets(response.data);
+    } catch (error) {
+      console.error("Error fetching assets:", error);
+      alert("Failed to load assets. Please try again.");
+    }
+  };
   const fetchStockData = async () => {
     if (!symbol) return;
     try {
@@ -61,13 +78,44 @@ export default function Dashboard() {
             capitalize on those opportunities and make your next big move.
           </p>
         </div>
-        <div className="portfolio-value">
-          <h3>My Portfolio</h3>
-          <h3>Total Value</h3>
-          <h3>${totalValue}</h3>
+        <div className="portfolio-container">
+          <div className="portfolio-value">
+            <h3>Your Portfolio</h3>
+            <h3>Total Value</h3>
+            <h3>${totalValue}</h3>
+          </div>
+
+          <div className="portfolio-details">
+            <h1>Top Performing Stocks</h1>
+            <table className="assets-table">
+              <thead>
+                <tr>
+                  <th>Stock Name</th>
+                  <th>Ticker</th>
+                  <th>Current Price</th>
+                  <th>Gain (%)</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {assets
+                  .sort((a, b) => b.gainPercent - a.gainPercent)
+                  .slice(0, 3)
+                  .map((asset, index) => (
+                    <tr key={index}>
+                      <td>{asset.stockName}</td>
+                      <td>{asset.ticker}</td>
+                      <td>{asset.currentPrice}</td>
+                      <td>{asset.gainPercent}</td>
+                      <td>{asset.value}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
         </div>
         <div className="clock1">
-          <h2 className="text-white">Major Market Time Zones</h2>
+          <h2>Major Market Time Zones</h2>
           <Clock />
         </div>
       </div>

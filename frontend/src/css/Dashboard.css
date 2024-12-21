@@ -3,16 +3,30 @@
     display: grid;
     grid-template-columns: 60% 40%;
     height: 100vh;
+    padding: 20px;
 }
 
-.timedisplay {
-    grid-column: 1/2;
+.portfolio-container {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    height: 100%;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.portfolio-value,
+.portfolio-details {
+    flex: 1;
+    background-color: #000000;
+    color: transparent;
+    background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
+    background-clip: text;
+    -webkit-background-clip: text;
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .portfolio-value {
@@ -35,9 +49,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-height: 100%;
     box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
-    max-width: 100%;
+}
+
+.portfolio-details h1 {
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
 }
 
 .portfolio-value h2 {
@@ -51,84 +69,30 @@
     box-shadow: 0 6px 25px rgba(255, 215, 0, 0.5);
 }
 
-.welcome-message {
-    font-family: 'Arima', serif;
+.timedisplay {
+    grid-column: 1/2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+}
+
+.clock1 {
+    margin-top: 40px;
+    width: 100%;
+    text-align: center;
+    flex-grow: 0;
+}
+
+.clock1 h2 {
     color: transparent;
     background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
-    /* Gradient with your colors */
-    background-clip: text;
     -webkit-background-clip: text;
-    font-weight: 700;
-    text-align: center;
-    margin: 40px 20px;
-    padding: 20px;
-    line-height: 1.4;
-    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
-    /* Golden shadow */
-    border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background: #0000;
-    /* Fall back background color */
-}
-
-.welcome-message h1 {
-    color: #b8a14f;
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-}
-
-.welcome-message p {
-    color: #b8a14f;
-    font-size: 1.1rem;
-    margin: 10px 0;
-}
-
-.welcome-message:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(255, 215, 0, 0.5);
-}
-
-.welcome-message p:first-child {
-    color: #b8a14f;
+    background-clip: text;
     font-weight: bold;
 }
-
-.welcome-message p:last-child {
-    color: #b8a14f;
-}
-
-.typing-effect {
-    font-family: 'Arima', serif;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #b8a14f;
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 1px solid #b8a14f;
-    width: 0;
-    animation: typing 3s steps(25) 1s forwards, blink-caret 0.75s step-end 3s forwards;
-}
-
-@keyframes typing {
-    from {
-        width: 0;
-    }
-
-    to {
-        width: 100%;
-    }
-}
-
-@keyframes blink-caret {
-    50% {
-        border-color: transparent;
-    }
-
-    to {
-        border-color: transparent;
-    }
-}
-
 
 .chartdisplay {
     grid-column: 2/3;
@@ -137,13 +101,6 @@
     max-width: 800px;
     margin: 20px 0;
     flex-grow: 1;
-}
-
-.clock1 {
-    margin-top: 40px;
-    width: 100%;
-    text-align: center;
-    flex-grow: 0;
 }
 
 .watchlist {
@@ -227,6 +184,55 @@
     background-color: #222;
 }
 
+.welcome-message {
+    font-family: 'Arima', serif;
+    color: transparent;
+    background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 700;
+    text-align: center;
+    margin: 40px 20px;
+    padding: 20px;
+    line-height: 1.4;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #0000;
+}
+
+.welcome-message h1 {
+    color: transparent;
+    background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.welcome-message p {
+    color: transparent;
+    background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+.welcome-message:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(255, 215, 0, 0.5);
+}
+
+.welcome-message p:first-child {
+    color: #b8a14f;
+    font-weight: bold;
+}
+
+.welcome-message p:last-child {
+    color: #b8a14f;
+}
+
 .text-animated {
     font-size: 0.9rem;
     font-weight: bold;
@@ -244,5 +250,113 @@
 
     50% {
         transform: translateY(-10px);
+    }
+}
+
+.typing-effect {
+    font-family: 'Arima', serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #b8a14f;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 1px solid #b8a14f;
+    width: 0;
+    animation: typing 3s steps(25) 1s forwards, blink-caret 0.75s step-end 3s forwards;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+    50% {
+        border-color: transparent;
+    }
+
+    to {
+        border-color: transparent;
+    }
+}
+
+@media (max-width: 1200px) {
+    .dashboard {
+        grid-template-columns: 70% 30%;
+    }
+
+    .portfolio-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .portfolio-value,
+    .portfolio-details {
+        min-width: 90%;
+    }
+
+    .chartdisplay {
+        grid-column: 1/2;
+    }
+
+    .watchlist {
+        grid-column: 1/2;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .portfolio-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .portfolio-value,
+    .portfolio-details {
+        min-width: 90%;
+    }
+
+    .watchlist {
+        grid-column: 1/2;
+    }
+
+    .clock1 {
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .portfolio-value {
+        font-size: 0.9rem;
+    }
+
+    .portfolio-details h1 {
+        font-size: 1.2rem;
+    }
+
+    .watchlist-heading {
+        font-size: 1.2rem;
+    }
+
+    .add-button {
+        font-size: 0.9rem;
+    }
+
+    .text-animated {
+        font-size: 0.8rem;
+    }
+
+    .typing-effect {
+        font-size: 1.2rem;
     }
 }

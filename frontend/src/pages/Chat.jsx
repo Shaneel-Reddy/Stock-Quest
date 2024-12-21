@@ -62,10 +62,10 @@ export default function Chat() {
         {chatHistory.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-center p-6">
             <div className="bg-gray-1000 rounded-xl p-8 max-w-2xl">
-              <h2 className="welcomechat text-2xl font-bold mb-4">
+              <h2 className="welcomechat text-2xl font-bold mb-4 md:text-xl sm:text-lg text-base max-w-full w-full overflow-wrap break-word">
                 Welcome to Stock Bot! 👋
               </h2>
-              <p className="text-gray-300 mb-4">
+              <p className="text-gray-300 mb-4 md:text-sm sm:text-xs text-xs max-w-full w-full overflow-wrap break-word">
                 I'm here to help you with anything you'd like to know. You can
                 ask me about:
               </p>
@@ -101,7 +101,7 @@ export default function Chat() {
                   className={`inline-block max-w-[80%] p-3 rounded-lg overflow-auto hide-scrollbar ${
                     chat.type === "question"
                       ? "bg-blue-600 text-white rounded-br-none"
-                      : "bg-gray-700 text-gray-300 rounded-bl-none"
+                      : "bg-gray-900 text-gray-300 rounded-bl-none"
                   }`}
                 >
                   <ReactMarkdown className="overflow-auto hide-scrollbar">
