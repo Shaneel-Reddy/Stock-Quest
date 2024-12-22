@@ -167,7 +167,7 @@ export default function Dashboard() {
             </div>
           </>
         ) : (
-          <p className="text-animated">Track, Analyze, Conquer the Market!⬆️</p>
+          <p className="text-animated">Track, Analyze, Conquer the Market!</p>
         )}
       </div>
     </div>

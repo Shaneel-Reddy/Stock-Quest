@@ -225,19 +225,28 @@
 }
 
 .welcome-message p:first-child {
-    color: #b8a14f;
+    color: transparent;
+    background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
+    background-clip: text;
+    -webkit-background-clip: text;
     font-weight: bold;
 }
 
 .welcome-message p:last-child {
-    color: #b8a14f;
+    color: transparent;
+    background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
+    background-clip: text;
+    -webkit-background-clip: text;
 }
 
 .text-animated {
     font-size: 0.9rem;
     font-weight: bold;
     text-align: center;
-    color: #fff;
+    color: transparent;
+    background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
+    background-clip: text;
+    -webkit-background-clip: text;
     animation: bounce 2s infinite;
 }
 

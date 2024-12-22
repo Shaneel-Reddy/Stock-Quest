@@ -83,21 +83,17 @@
     color: #fff;
 }
 
-/* Responsive Design */
 @media screen and (max-width: 1024px) {
 
     .youtube-scroll,
     .article-scroll {
         gap: 10px;
-        /* Reduce gap for medium-sized screens */
     }
 
     .video-card,
     .article-card {
         width: 200px;
-        /* Reduce card width */
         height: 220px;
-        /* Adjust height */
     }
 }
 
@@ -106,31 +102,24 @@
     .youtube-scroll,
     .article-scroll {
         flex-wrap: wrap;
-        /* Allow wrapping for smaller screens */
         justify-content: center;
-        /* Center content */
     }
 
     .video-card,
     .article-card {
         width: 100%;
-        /* Make cards full width */
         height: 100%;
-        /* Adjust height proportionally */
         margin-bottom: 20px;
-        /* Add space between cards */
     }
 
     .youtubeheader,
     .article-header {
         font-size: 20px;
-        /* Reduce font size for smaller screens */
     }
 
     .video-card h3,
     .article-card h3 {
         font-size: 17px;
-        /* Adjust heading size */
     }
 }
 
@@ -139,28 +128,22 @@
     .youtube-scroll,
     .article-scroll {
         gap: 5px;
-        /* Further reduce gap for mobile screens */
     }
 
     .video-card,
     .article-card {
         width: 250px;
-        /* Cards take full width */
         height: auto;
-        /* Ensure the height is proportionate */
         padding: 8px;
-        /* Reduce padding */
     }
 
     .video-thumbnail,
     .article-thumbnail {
         height: 150px;
-        /* Adjust thumbnail height */
     }
 
     .video-card h3,
     .article-card h3 {
         font-size: 12px;
-        /* Smaller font size for mobile */
     }
 }

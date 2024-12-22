@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "../css/Header.css";
 export default function Header() {
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -7,7 +8,7 @@ export default function Header() {
     navigate("/");
   };
   return (
-    <header className="headings p-3 text-white">
+    <header className="headings p-3 ">
       <div className="container">
         <div className="d-flex justify-content-between align-items-center">
           <Link to="/" className="titleheader">
@@ -15,27 +16,27 @@ export default function Header() {
           </Link>
           <ul className="nav mx-auto mb-0">
             <li>
-              <Link to="/dashboard" className="nav-link px-3 text-white">
+              <Link to="/dashboard" className="nav-link px-3">
                 Dashboard
               </Link>
             </li>
             <li>
-              <Link to="/portfolio" className="nav-link px-3 text-white">
+              <Link to="/portfolio" className="nav-link px-3">
                 Portfolio
               </Link>
             </li>
             <li>
-              <Link to="/market" className="nav-link px-3 text-white">
+              <Link to="/market" className="nav-link px-3">
                 Market
               </Link>
             </li>
             <li>
-              <Link to="/chat" className="nav-link px-3 text-white">
+              <Link to="/chat" className="nav-link px-3 ">
                 Chat
               </Link>
             </li>
             <li>
-              <Link to="/learn" className="nav-link px-3 text-white">
+              <Link to="/learn" className="nav-link px-3 ">
                 Learn
               </Link>
             </li>

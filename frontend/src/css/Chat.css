@@ -117,3 +117,45 @@
 .chat-form button:disabled {
     background-color: #ccc;
 }
+
+@media (max-width: 768px) {
+    .chat-container {
+        min-height: 100%;
+        max-width: 100%;
+        border: none;
+        border-radius: 0;
+    }
+
+    .chatcard {
+        margin: 10px 5px;
+        padding: 15px;
+    }
+
+    .chat-form {
+        grid-template-columns: 1fr;
+    }
+
+    .chat-form button {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-container {
+        min-height: 100%;
+    }
+
+    .chatcard {
+        font-size: 0.9em;
+        padding: 10px;
+    }
+
+    .chat-form textarea {
+        padding: 2px;
+    }
+
+    .chat-form button {
+        padding: 8px 15px;
+    }
+}

@@ -117,25 +117,21 @@
     background-color: rgba(18, 18, 18, 0.7);
 }
 
-/* Responsive Design */
 @media screen and (max-width: 768px) {
     .market {
         grid-template-columns: 1fr;
-        /* Stack the columns on smaller screens */
         padding: 10px;
         min-width: 100%;
     }
 
     .market1 {
         font-size: 1.5em;
-        /* Reduce font size */
         margin-top: 20px;
         margin-bottom: 20px;
     }
 
     .quote {
         font-size: 0.8em;
-        /* Adjust font size for smaller screens */
         margin: 20px;
         padding: 15px;
     }
@@ -147,7 +143,6 @@
     .table th,
     .table td {
         padding: 8px;
-        /* Reduce padding for table cells */
     }
 
     .d2,
@@ -159,14 +154,13 @@
 @media screen and (max-width: 480px) {
     .market1 {
         font-size: 1.2em;
-        /* Further reduce font size */
         margin-top: 15px;
         margin-bottom: 15px;
+        min-width: 100%;
     }
 
     .quote {
         font-size: 0.9em;
-        /* Slightly reduce font size for mobile */
         margin: 10px;
         padding: 10px;
     }
@@ -178,7 +172,6 @@
     .table th,
     .table td {
         padding: 6px;
-        /* Smaller padding for mobile screens */
     }
 
     .market {

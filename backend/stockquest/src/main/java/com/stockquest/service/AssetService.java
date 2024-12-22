@@ -1,10 +1,12 @@
 package com.stockquest.service;
-
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import com.stockquest.entity.Asset;
 import com.stockquest.entity.Portfolio;
 import com.stockquest.entity.Register;
 import com.stockquest.repo.AssetRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.util.List;
@@ -15,11 +17,11 @@ public class AssetService {
     private final AssetRepository assetRepository;
     private final RestTemplate restTemplate;
 
-    @Value("${stock.api.url}")
-    private String stockApiUrl;
+    @Value("${finnhub.api.url}")
+    private String finnhubApiUrl;
 
-    @Value("${stock.api.key}")
-    private String stockApiKey;
+    @Value("${finnhub.api.key}")
+    private String finnhubApiKey;
 
     public AssetService(AssetRepository assetRepository, RestTemplate restTemplate) {
         this.assetRepository = assetRepository;
@@ -34,10 +36,11 @@ public class AssetService {
         asset.setCurrentPrice(currentPrice);
 
         asset.setValue(currentPrice * asset.getQuantity());
-        
-        asset.setGainPercent(((currentPrice - asset.getBuyPrice()) / asset.getBuyPrice()) * 100);
-        
+        double gainPercent = ((currentPrice - asset.getBuyPrice()) / asset.getBuyPrice()) * 100;
 
+        BigDecimal roundedGainPercent = new BigDecimal(gainPercent).setScale(2, RoundingMode.HALF_UP);
+        asset.setGainPercent(roundedGainPercent.doubleValue());
+        
         return assetRepository.save(asset);
     }
 
@@ -50,10 +53,11 @@ public class AssetService {
         
         Double currentPrice = fetchCurrentPrice(updatedAsset.getTicker());
         asset.setCurrentPrice(currentPrice);
-        
         asset.setValue(currentPrice * asset.getQuantity());
-        asset.setGainPercent(((currentPrice - asset.getBuyPrice()) / asset.getBuyPrice()) * 100);
-
+        
+        double gainPercent = ((currentPrice - asset.getBuyPrice()) / asset.getBuyPrice()) * 100;
+        BigDecimal roundedGainPercent = new BigDecimal(gainPercent).setScale(2, RoundingMode.HALF_UP);
+        asset.setGainPercent(roundedGainPercent.doubleValue());
         return assetRepository.save(asset);
     }
 
@@ -67,14 +71,43 @@ public class AssetService {
     }
 
     private Double fetchCurrentPrice(String ticker) {
-        String url = stockApiUrl + "?symbol=" + ticker + "&interval=1day&outputsize=1&apikey=" + stockApiKey;
+        String url = finnhubApiUrl + "/quote?symbol=" + ticker.toUpperCase() + "&token=" + finnhubApiKey;
         try {
             Map<String, Object> response = restTemplate.getForObject(url, Map.class);
-            List<Map<String, String>> values = (List<Map<String, String>>) response.get("values");
-            return Double.parseDouble(values.get(0).get("close"));
+            System.out.println("API Response for " + ticker + ": " + response);
+            if (response != null && response.containsKey("c")) {
+            	Double price = (Double) response.get("c");
+                if (price == null || price == 0.0) {
+                    throw new RuntimeException("API returned invalid current price for ticker: " + ticker);
+                }
+                return price;
+            } else {
+                throw new RuntimeException("Invalid response from API for ticker: " + ticker);
+            }
         } catch (Exception e) {
             throw new RuntimeException("Failed to fetch current price for ticker: " + ticker, e);
         }
     }
 
+
+
+    @Scheduled(fixedRate = 1800000) 
+    public void updateStockPrices() {
+        List<Asset> assets = assetRepository.findAll();
+        for (Asset asset : assets) {
+            try {
+                Double currentPrice = fetchCurrentPrice(asset.getTicker());
+                asset.setCurrentPrice(currentPrice);
+                asset.setValue(currentPrice * asset.getQuantity());
+                
+                double gainPercent = ((currentPrice - asset.getBuyPrice()) / asset.getBuyPrice()) * 100;
+                BigDecimal roundedGainPercent = new BigDecimal(gainPercent).setScale(2, RoundingMode.HALF_UP);
+                asset.setGainPercent(roundedGainPercent.doubleValue());
+                
+                assetRepository.save(asset);
+            } catch (Exception e) {
+                System.err.println("Error updating price for " + asset.getTicker() + ": " + e.getMessage());
+            }
+        }
+    }
 }
