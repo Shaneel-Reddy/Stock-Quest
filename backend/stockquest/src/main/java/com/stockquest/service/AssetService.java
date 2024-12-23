@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 @Service
@@ -110,4 +112,30 @@ public class AssetService {
             }
         }
     }
+    
+    public void createDefaultAssetsForUser(Register user, Portfolio portfolio) {
+    	List<Asset> assets = Arrays.asList(
+    			new Asset("Apple Inc.", "AAPL", 1, 100.0, 120.0, 20.0, user, portfolio),
+    			new Asset("Tesla Inc.", "TSLA", 1, 150.0, 140.0, -6.67, user, portfolio),
+    			new Asset("Microsoft Corporation", "MSFT", 1, 50.0, 55.0, 10.0, user, portfolio),
+    			new Asset("Amazon.com Inc.", "AMZN", 1, 200.0, 210.0, 5.0, user, portfolio),
+    			new Asset("Google", "GOOGL", 1, 30.0, 25.0, -16.67, user, portfolio)
+
+    		);
+
+
+
+        for (Asset asset : assets) {
+            Double currentPrice = fetchCurrentPrice(asset.getTicker());
+            asset.setCurrentPrice(currentPrice);
+            asset.setValue(currentPrice * asset.getQuantity());
+            
+            double gainPercent = ((currentPrice - asset.getBuyPrice()) / asset.getBuyPrice()) * 100;
+            BigDecimal roundedGainPercent = new BigDecimal(gainPercent).setScale(2, RoundingMode.HALF_UP);
+            asset.setGainPercent(roundedGainPercent.doubleValue());
+        }
+
+        assetRepository.saveAll(assets);
+    }
+
 }

@@ -3,6 +3,7 @@ import axios from "axios";
 import "../css/Portfolio.css";
 import StockChart from "../components/StockChart";
 
+const Stock_key = import.meta.env.VITE_DASHSTOCKNAPI_KEY;
 export default function Portfolio() {
   const [isAssetModalOpen, setIsAssetModalOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -154,6 +155,24 @@ export default function Portfolio() {
       alert("Failed to delete asset. Please try again.");
     }
   };
+  const fetchStockData = async (index) => {
+    const symbol = assets[index].ticker;
+    if (!symbol) return;
+    try {
+      const response = await fetch(
+        `https://api.twelvedata.com/time_series?symbol=${symbol}&interval=1day&outputsize=7&apikey=${Stock_key}`
+      );
+      const data = await response.json();
+      if (data.values) {
+        setStockData(data);
+        setError(null);
+      } else {
+        setError("Invalid symbol or data not available.");
+      }
+    } catch (err) {
+      setError("Error fetching data.");
+    }
+  };
 
   return (
     <div className="portfolio-page">
@@ -241,13 +260,13 @@ export default function Portfolio() {
             </button>
             <input
               type="text"
-              placeholder="Stock Name (E.g., Apple Inc.)"
+              placeholder="Stock Name (Eg. Apple)"
               value={stockName}
               onChange={(e) => setStockName(e.target.value)}
             />
             <input
               type="text"
-              placeholder="Ticker (E.g., AAPL)"
+              placeholder="Ticker (Eg. AAPL)"
               value={ticker}
               onChange={(e) => setTicker(e.target.value)}
             />

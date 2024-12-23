@@ -81,7 +81,7 @@ public class PortfolioController {
         try {
             Register user = userService.findUserProfileByJwt(jwt);
             Portfolio portfolio = portfolioService.getPortfolioByUserId(user.getId());
-
+            
             return ResponseEntity.ok(portfolio.getAssets());
         } catch (Exception e) {
             throw new UnauthorizedException("User not authorized or invalid JWT token.");
@@ -93,7 +93,7 @@ public class PortfolioController {
         try {
             Register user = userService.findUserProfileByJwt(jwt);
             Portfolio portfolio = portfolioService.getPortfolioByUserId(user.getId());
-
+            portfolioService.recalculatePortfolioValue(portfolio);
             return ResponseEntity.ok(portfolio.getTotalValue());
         } catch (Exception e) {
             throw new UnauthorizedException("User not authorized or invalid JWT token.");

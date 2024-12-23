@@ -25,7 +25,7 @@ public class PortfolioService {
                 .orElseGet(() -> createPortfolio(userId));
     }
 
-    private Portfolio createPortfolio(Long userId) {
+    public Portfolio createPortfolio(Long userId) {
         Register user = registerRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + userId));
 

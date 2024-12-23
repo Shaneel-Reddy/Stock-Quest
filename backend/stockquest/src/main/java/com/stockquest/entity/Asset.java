@@ -121,4 +121,16 @@ public class Asset {
         this.portfolio = portfolio;
         this.user = user;
     }
+    public Asset(String stockName, String ticker, int quantity, double buyPrice, double currentPrice,
+            double gainPercent, Register user, Portfolio portfolio) {
+	   this.stockName = stockName;
+	   this.ticker = ticker;
+	   this.quantity = quantity;
+	   this.buyPrice = buyPrice;
+	   this.currentPrice = currentPrice;
+	   this.gainPercent = gainPercent;
+	   this.user = user;
+	   this.portfolio = portfolio;
+    }
+
 }

@@ -1,10 +1,13 @@
 package com.stockquest.controller;
  
 import com.stockquest.config.JwtProvider;
+import com.stockquest.entity.Portfolio;
 import com.stockquest.entity.Register;
 import com.stockquest.repo.RegisterRepo;
 import com.stockquest.request.LoginRequest;
 import com.stockquest.response.AuthResponse;
+import com.stockquest.service.AssetService;
+import com.stockquest.service.PortfolioService;
 import com.stockquest.service.RegisterServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +33,12 @@ public class RegisterController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private RegisterServiceImp customUserDetails;
+    @Autowired
+    private AssetService assetService;
+
+    @Autowired
+    private PortfolioService portfolioService;
+
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> createUserHandler(@RequestBody Register user) throws Exception {
         Register isUserExist = userRepository.findByEmail(user.getEmail());
@@ -46,6 +55,11 @@ public class RegisterController {
         createdUser.setPhonenumber(user.getPhonenumber());
         
         Register savedUser = userRepository.save(createdUser);
+        Portfolio savedPortfolio = portfolioService.createPortfolio(savedUser.getId());
+
+
+        assetService.createDefaultAssetsForUser(savedUser, savedPortfolio);
+        
         Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         
