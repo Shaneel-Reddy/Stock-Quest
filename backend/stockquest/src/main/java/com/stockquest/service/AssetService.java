@@ -72,7 +72,7 @@ public class AssetService {
                 .orElseThrow(() -> new IllegalArgumentException("Asset not found"));
     }
 
-    private Double fetchCurrentPrice(String ticker) {
+    public Double fetchCurrentPrice(String ticker) {
         String url = finnhubApiUrl + "/quote?symbol=" + ticker.toUpperCase() + "&token=" + finnhubApiKey;
         try {
             Map<String, Object> response = restTemplate.getForObject(url, Map.class);

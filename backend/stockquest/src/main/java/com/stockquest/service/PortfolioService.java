@@ -34,6 +34,7 @@ public class PortfolioService {
     }
 
     public void recalculatePortfolioValue(Portfolio portfolio) {
+    	
         double totalValue = portfolio.getAssets().stream()
                 .mapToDouble(Asset::getValue)
                 .sum();
