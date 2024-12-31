@@ -2,135 +2,141 @@ package com.stockquest.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Asset {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String stockName;
-    private String ticker;
-    private double quantity;
-    private double buyPrice;
-    private double currentPrice;
-    private double gainPercent;
-    private double value;
-    
-    @ManyToOne
-    @JsonBackReference
-    private Portfolio portfolio;
+	private String stockName;
+	private String ticker;
+	private double quantity;
+	private double buyPrice;
+	private double currentPrice;
+	private double gainPercent;
+	private double value;
 
-    @ManyToOne
-    private Register user;
+	@ManyToOne
+	@JsonBackReference
+	private Portfolio portfolio;
 
-    public Long getId() {
-        return id;
-    }
+	@ManyToOne
+	private Register user;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getStockName() {
-        return stockName;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setStockName(String stockName) {
-        this.stockName = stockName;
-    }
+	public String getStockName() {
+		return stockName;
+	}
 
-    public String getTicker() {
-        return ticker;
-    }
+	public void setStockName(String stockName) {
+		this.stockName = stockName;
+	}
 
-    public void setTicker(String ticker) {
-        this.ticker = ticker;
-    }
+	public String getTicker() {
+		return ticker;
+	}
 
-    public double getQuantity() {
-        return quantity;
-    }
+	public void setTicker(String ticker) {
+		this.ticker = ticker;
+	}
 
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
-    }
+	public double getQuantity() {
+		return quantity;
+	}
 
-    public double getBuyPrice() {
-        return buyPrice;
-    }
+	public void setQuantity(double quantity) {
+		this.quantity = quantity;
+	}
 
-    public void setBuyPrice(double buyPrice) {
-        this.buyPrice = buyPrice;
-    }
+	public double getBuyPrice() {
+		return buyPrice;
+	}
 
-    public double getCurrentPrice() {
-        return currentPrice;
-    }
+	public void setBuyPrice(double buyPrice) {
+		this.buyPrice = buyPrice;
+	}
 
-    public void setCurrentPrice(double currentPrice) {
-        this.currentPrice = currentPrice;
-    }
+	public double getCurrentPrice() {
+		return currentPrice;
+	}
 
-    public double getGainPercent() {
-        return gainPercent;
-    }
+	public void setCurrentPrice(double currentPrice) {
+		this.currentPrice = currentPrice;
+	}
 
-    public void setGainPercent(double gainPercent) {
-        this.gainPercent = gainPercent;
-    }
+	public double getGainPercent() {
+		return gainPercent;
+	}
 
-    public double getValue() {
-        return value;
-    }
+	public void setGainPercent(double gainPercent) {
+		this.gainPercent = gainPercent;
+	}
 
-    public void setValue(double value) {
-        this.value = value;
-    }
+	public double getValue() {
+		return value;
+	}
 
-    public Portfolio getPortfolio() {
-        return portfolio;
-    }
+	public void setValue(double value) {
+		this.value = value;
+	}
 
-    public void setPortfolio(Portfolio portfolio) {
-        this.portfolio = portfolio;
-    }
+	public Portfolio getPortfolio() {
+		return portfolio;
+	}
 
-    public Register getUser() {
-        return user;
-    }
+	public void setPortfolio(Portfolio portfolio) {
+		this.portfolio = portfolio;
+	}
 
-    public void setUser(Register user) { 
-        this.user = user;
-    }
+	public Register getUser() {
+		return user;
+	}
 
-    public Asset() {}
+	public void setUser(Register user) {
+		this.user = user;
+	}
 
-    public Asset(Long id, String stockName, String ticker, double quantity, double buyPrice, double currentPrice,
-                 double gainPercent, double value, Portfolio portfolio, Register user) {
-        this.id = id;
-        this.stockName = stockName;
-        this.ticker = ticker;
-        this.quantity = quantity;
-        this.buyPrice = buyPrice;
-        this.currentPrice = currentPrice;
-        this.gainPercent = gainPercent;
-        this.value = value;
-        this.portfolio = portfolio;
-        this.user = user;
-    }
-    public Asset(String stockName, String ticker, int quantity, double buyPrice, double currentPrice,
-            double gainPercent, Register user, Portfolio portfolio) {
-	   this.stockName = stockName;
-	   this.ticker = ticker;
-	   this.quantity = quantity;
-	   this.buyPrice = buyPrice;
-	   this.currentPrice = currentPrice;
-	   this.gainPercent = gainPercent;
-	   this.user = user;
-	   this.portfolio = portfolio;
-    }
+	public Asset() {
+	}
+
+	public Asset(Long id, String stockName, String ticker, double quantity, double buyPrice, double currentPrice,
+			double gainPercent, double value, Portfolio portfolio, Register user) {
+		this.id = id;
+		this.stockName = stockName;
+		this.ticker = ticker;
+		this.quantity = quantity;
+		this.buyPrice = buyPrice;
+		this.currentPrice = currentPrice;
+		this.gainPercent = gainPercent;
+		this.value = value;
+		this.portfolio = portfolio;
+		this.user = user;
+	}
+
+	public Asset(String stockName, String ticker, int quantity, double buyPrice, double currentPrice,
+			double gainPercent, Register user, Portfolio portfolio) {
+		this.stockName = stockName;
+		this.ticker = ticker;
+		this.quantity = quantity;
+		this.buyPrice = buyPrice;
+		this.currentPrice = currentPrice;
+		this.gainPercent = gainPercent;
+		this.user = user;
+		this.portfolio = portfolio;
+	}
 
 }

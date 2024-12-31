@@ -18,9 +18,9 @@ const topStocks = [
   "UNH",
 ];
 
-const API_KEY = ""; //import.meta.env.VITE_MARKETSTOCKAPI_KEY;
+const API_KEY = import.meta.env.VITE_MARKETSTOCKAPI_KEY;
 const BASE_URL = "https://finnhub.io/api/v1";
-const NEWS_API_KEY = ""; //import.meta.env.VITE_NEWSAPI_KEY;
+const NEWS_API_KEY = import.meta.env.VITE_NEWSAPI_KEY;
 const NEWS_API_URL = `https://newsdata.io/api/1/news?apikey=${NEWS_API_KEY}&q=stock&language=en&category=business`;
 
 export default function Market() {

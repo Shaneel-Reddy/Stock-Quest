@@ -1,6 +1,7 @@
 .header {
     background-color: #333;
     color: #fff;
+    width: 100%;
 }
 
 .title-header {
@@ -12,6 +13,14 @@
 .nav {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+}
+
+.nav li {
+    flex: 0 0 auto;
+    min-width: fit-content;
 }
 
 .nav-link {
@@ -22,6 +31,8 @@
     background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
     background-clip: text;
     -webkit-background-clip: text;
+    display: block;
+    text-align: center;
 }
 
 .nav-link:visited {
@@ -63,13 +74,18 @@
 
 @media (max-width: 768px) {
     .nav {
-        justify-content: space-between;
-        min-width: 100%;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 0;
+    }
+
+    .nav li {
+        flex: 0 1 auto;
     }
 
     .nav-link {
         font-size: 0.7rem;
-        padding: 0 5px;
+        padding: 5px 10px;
     }
 
     .header .navbar-toggler {
@@ -106,16 +122,35 @@
 }
 
 @media (max-width: 576px) {
+    .container {
+        width: 100%;
+        padding: 0 15px;
+    }
+
     .nav {
-        justify-content: space-evenly;
-        min-width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .nav li {
+        flex: 0 1 auto;
+        min-width: calc(50% - 10px);
+        text-align: center;
     }
 
     .nav-link {
         font-size: 0.6rem;
+        padding: 5px;
     }
 
     .title-header {
         font-size: 1.2rem;
+        margin-bottom: 10px;
     }
+}
+
+.container {
+    width: 100%;
+    max-width: 100%;
 }

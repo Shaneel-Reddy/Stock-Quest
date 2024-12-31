@@ -2,40 +2,46 @@ package com.stockquest.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Register {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String username;
-    private String password;
-    private String email;
-    private String firstname;
-    private String lastname;
-    private String address;
-    private String phonenumber;
+	private String username;
+	private String password;
+	private String email;
+	private String firstname;
+	private String lastname;
+	private String address;
+	private String phonenumber;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
-    private Portfolio portfolio;
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonBackReference
+	private Portfolio portfolio;
 
-    public Register() {}
+	public Register() {
+	}
 
-    public Register(Long id, String username, String password, String email, String firstname, String lastname,
-                    String address, String phonenumber) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.address = address;
-        this.phonenumber = phonenumber;
-    }
+	public Register(Long id, String username, String password, String email, String firstname, String lastname,
+			String address, String phonenumber) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.address = address;
+		this.phonenumber = phonenumber;
+	}
 
 	public Long getId() {
 		return id;

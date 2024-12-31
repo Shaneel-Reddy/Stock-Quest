@@ -99,7 +99,7 @@ export default function Portfolio() {
       });
 
       setAssets([...assets, response.data]);
-
+      await fetchTotalValue();
       handleAssetModalClose();
     } catch (error) {
       console.error("Error adding asset:", error);
@@ -131,7 +131,7 @@ export default function Portfolio() {
       const updatedAssets = [...assets];
       updatedAssets[editingIndex] = response.data;
       setAssets(updatedAssets);
-
+      await fetchTotalValue();
       handleAssetModalClose();
     } catch (error) {
       console.error("Error updating asset:", error);
@@ -150,6 +150,7 @@ export default function Portfolio() {
 
       const updatedAssets = assets.filter((_, i) => i !== index);
       setAssets(updatedAssets);
+      await fetchTotalValue();
     } catch (error) {
       console.error("Error deleting asset:", error);
       alert("Failed to delete asset. Please try again.");

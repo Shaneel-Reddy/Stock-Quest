@@ -132,7 +132,7 @@ export default function Dashboard() {
             onChange={handleSymbolChange}
           />
           <button className="add-button" onClick={fetchStockData}>
-            Add
+            View
           </button>
         </div>
 

@@ -1,102 +1,111 @@
 package com.stockquest.controller;
 
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.stockquest.entity.Asset;
 import com.stockquest.entity.Portfolio;
 import com.stockquest.entity.Register;
+import com.stockquest.exception.ResourceNotFoundException;
+import com.stockquest.exception.UnauthorizedException;
 import com.stockquest.service.AssetService;
 import com.stockquest.service.PortfolioService;
 import com.stockquest.service.RegisterServiceImp;
-import com.stockquest.exception.ResourceNotFoundException;
-import com.stockquest.exception.UnauthorizedException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/portfolio")
 public class PortfolioController {
 
-    private final AssetService assetService;
-    private final PortfolioService portfolioService;
-    private final RegisterServiceImp userService;
+	private final AssetService assetService;
+	private final PortfolioService portfolioService;
+	private final RegisterServiceImp userService;
 
-    public PortfolioController(AssetService assetService, PortfolioService portfolioService, RegisterServiceImp userService) {
-        this.assetService = assetService;
-        this.portfolioService = portfolioService;
-        this.userService = userService;
-    }
+	public PortfolioController(AssetService assetService, PortfolioService portfolioService,
+			RegisterServiceImp userService) {
+		this.assetService = assetService;
+		this.portfolioService = portfolioService;
+		this.userService = userService;
+	}
 
-    @PostMapping("/addAsset")
-    public ResponseEntity<Asset> addAssetToPortfolio(@RequestBody Asset asset, @RequestHeader("Authorization") String jwt) {
-        try {
-            Register user = userService.findUserProfileByJwt(jwt);
-            Portfolio portfolio = portfolioService.getPortfolioByUserId(user.getId());
-            Asset createdAsset = assetService.createAsset(user, asset, portfolio);
+	@PostMapping("/addAsset")
+	public ResponseEntity<Asset> addAssetToPortfolio(@RequestBody Asset asset,
+			@RequestHeader("Authorization") String jwt) {
+		try {
+			Register user = userService.findUserProfileByJwt(jwt);
+			Portfolio portfolio = portfolioService.getPortfolioByUserId(user.getId());
+			Asset createdAsset = assetService.createAsset(user, asset, portfolio);
 
-            portfolioService.recalculatePortfolioValue(portfolio);
+			portfolioService.recalculatePortfolioValue(portfolio);
 
-            return ResponseEntity.ok(createdAsset);
-        } catch (Exception e) {
-            throw new UnauthorizedException("User not authorized or invalid JWT token.");
-        }
-    }
+			return ResponseEntity.ok(createdAsset);
+		} catch (Exception e) {
+			throw new UnauthorizedException("User not authorized or invalid JWT token.");
+		}
+	}
 
-    @PutMapping("/updateAsset/{assetId}")
-    public ResponseEntity<Asset> updateAsset(@PathVariable Long assetId, @RequestBody Asset updatedAsset, @RequestHeader("Authorization") String jwt) {
-        try {
-            Register user = userService.findUserProfileByJwt(jwt);
-            Portfolio portfolio = portfolioService.getPortfolioByUserId(user.getId());
-            Asset asset = assetService.updateAsset(assetId, updatedAsset);
+	@PutMapping("/updateAsset/{assetId}")
+	public ResponseEntity<Asset> updateAsset(@PathVariable Long assetId, @RequestBody Asset updatedAsset,
+			@RequestHeader("Authorization") String jwt) {
+		try {
+			Register user = userService.findUserProfileByJwt(jwt);
+			Portfolio portfolio = portfolioService.getPortfolioByUserId(user.getId());
+			Asset asset = assetService.updateAsset(assetId, updatedAsset);
 
-            portfolioService.recalculatePortfolioValue(portfolio);
+			portfolioService.recalculatePortfolioValue(portfolio);
 
-            return ResponseEntity.ok(asset);
-        } catch (Exception e) {
-            throw new ResourceNotFoundException("Asset not found or invalid asset ID.");
-        }
-    }
+			return ResponseEntity.ok(asset);
+		} catch (Exception e) {
+			throw new ResourceNotFoundException("Asset not found or invalid asset ID.");
+		}
+	}
 
-    @DeleteMapping("/deleteAsset/{assetId}")
-    public ResponseEntity<Void> deleteAsset(@PathVariable Long assetId, @RequestHeader("Authorization") String jwt) throws Exception {
-        Register user = userService.findUserProfileByJwt(jwt);
-        Portfolio portfolio = portfolioService.getPortfolioByUserId(user.getId());
+	@DeleteMapping("/deleteAsset/{assetId}")
+	public ResponseEntity<Void> deleteAsset(@PathVariable Long assetId, @RequestHeader("Authorization") String jwt)
+			throws Exception {
+		Register user = userService.findUserProfileByJwt(jwt);
+		Portfolio portfolio = portfolioService.getPortfolioByUserId(user.getId());
+		Asset asset = assetService.getAssetById(assetId);
+		if (asset == null) {
+			throw new ResourceNotFoundException("Asset with ID " + assetId + " not found.");
+		}
 
-        Asset asset = assetService.getAssetById(assetId);
-        if (asset == null) {
-            throw new ResourceNotFoundException("Asset with ID " + assetId + " not found.");
-        }
+		assetService.deleteAsset(assetId);
+		portfolioService.recalculatePortfolioValue(portfolio);
 
-        assetService.deleteAsset(assetId);
-        portfolioService.recalculatePortfolioValue(portfolio);
+		return ResponseEntity.noContent().build();
+	}
 
-        return ResponseEntity.noContent().build(); 
-    }
+	@GetMapping("/allAssets")
+	public ResponseEntity<List<Asset>> getAssetsForUser(@RequestHeader("Authorization") String jwt) {
+		try {
+			Register user = userService.findUserProfileByJwt(jwt);
+			Portfolio portfolio = portfolioService.getPortfolioByUserId(user.getId());
 
+			return ResponseEntity.ok(portfolio.getAssets());
+		} catch (Exception e) {
+			throw new UnauthorizedException("User not authorized or invalid JWT token.");
+		}
+	}
 
-
-    @GetMapping("/allAssets")
-    public ResponseEntity<List<Asset>> getAssetsForUser(@RequestHeader("Authorization") String jwt) {
-        try {
-            Register user = userService.findUserProfileByJwt(jwt);
-            Portfolio portfolio = portfolioService.getPortfolioByUserId(user.getId());
-            
-            return ResponseEntity.ok(portfolio.getAssets());
-        } catch (Exception e) {
-            throw new UnauthorizedException("User not authorized or invalid JWT token.");
-        }
-    }
-
-    @GetMapping("/portfolioValue")
-    public ResponseEntity<Double> getPortfolioValue(@RequestHeader("Authorization") String jwt) {
-        try {
-            Register user = userService.findUserProfileByJwt(jwt);
-            Portfolio portfolio = portfolioService.getPortfolioByUserId(user.getId());
-            portfolioService.recalculatePortfolioValue(portfolio);
-            return ResponseEntity.ok(portfolio.getTotalValue());
-        } catch (Exception e) {
-            throw new UnauthorizedException("User not authorized or invalid JWT token.");
-        }
-    }
+	@GetMapping("/portfolioValue")
+	public ResponseEntity<Double> getPortfolioValue(@RequestHeader("Authorization") String jwt) {
+		try {
+			Register user = userService.findUserProfileByJwt(jwt);
+			Portfolio portfolio = portfolioService.getPortfolioByUserId(user.getId());
+			portfolioService.recalculatePortfolioValue(portfolio);
+			return ResponseEntity.ok(portfolio.getTotalValue());
+		} catch (Exception e) {
+			throw new UnauthorizedException("User not authorized or invalid JWT token.");
+		}
+	}
 }

@@ -126,6 +126,12 @@ export default function Chat() {
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="Type your question here..."
           className="bg-gray-800 text-white p-2 rounded-lg"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              generateAnswer(e);
+            }
+          }}
         />
         <button
           type="submit"
