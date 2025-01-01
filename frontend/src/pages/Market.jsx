@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../css/Market.css";
 import Card from "../components/Card";
-import image1 from "../assets/3d-rendering-financial-neon-bull.jpg";
-import image2 from "../assets/stock-trading-workplace-background.jpg";
+import image1 from "https://github.com/Shaneel-Reddy/Stock-Quest/blob/main/frontend/src/assets/3d-rendering-financial-neon-bull.jpg?raw=true";
+import image2 from "https://github.com/Shaneel-Reddy/Stock-Quest/blob/main/frontend/src/assets/stock-trading-workplace-background.jpg?raw=true";
 
 const topStocks = [
   "AAPL",

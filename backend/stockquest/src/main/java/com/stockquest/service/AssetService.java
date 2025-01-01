@@ -93,7 +93,7 @@ public class AssetService {
 		}
 	}
 
-	@Scheduled(fixedRate = 1800000)
+	@Scheduled(fixedRate = 86400000)
 	public void updateStockPrices() {
 		List<Asset> assets = assetRepository.findAll();
 		for (Asset asset : assets) {
