@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../css/Market.css";
 import Card from "../components/Card";
-import image1 from "https://github.com/Shaneel-Reddy/Stock-Quest/blob/main/frontend/src/assets/3d-rendering-financial-neon-bull.jpg?raw=true";
-import image2 from "https://github.com/Shaneel-Reddy/Stock-Quest/blob/main/frontend/src/assets/stock-trading-workplace-background.jpg?raw=true";
 
 const topStocks = [
   "AAPL",
@@ -76,10 +74,18 @@ export default function Market() {
         <div id="carouselExampleFade" className="carousel slide carousel-fade">
           <div className="carousel-inner">
             <div className="carousel-item active">
-              <img src={image1} className="d-block w-100" alt="Slide 1" />
+              <img
+                src="https://raw.githubusercontent.com/Shaneel-Reddy/Stock-Quest/main/frontend/src/assets/3d-rendering-financial-neon-bull.jpg"
+                className="d-block w-100"
+                alt="Slide 1"
+              />
             </div>
             <div className="carousel-item">
-              <img src={image2} className="d-block w-100" alt="Slide 2" />
+              <img
+                src="https://raw.githubusercontent.com/Shaneel-Reddy/Stock-Quest/main/frontend/src/assets/stock-trading-workplace-background.jpg"
+                className="d-block w-100"
+                alt="Slide 2"
+              />
             </div>
           </div>
           <button

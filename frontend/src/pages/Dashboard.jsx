@@ -82,7 +82,7 @@ export default function Dashboard() {
           <div className="portfolio-value">
             <h3>Your Portfolio</h3>
             <h3>Total Value</h3>
-            <h3>${totalValue}</h3>
+            <h3>${totalValue.toFixed(2)}</h3>
           </div>
 
           <div className="portfolio-details">
@@ -105,9 +105,9 @@ export default function Dashboard() {
                     <tr key={index}>
                       <td>{asset.stockName}</td>
                       <td>{asset.ticker}</td>
-                      <td>{asset.currentPrice}</td>
+                      <td>{asset.currentPrice.toFixed(2)}</td>
                       <td>{asset.gainPercent}</td>
-                      <td>{asset.value}</td>
+                      <td>{asset.value.toFixed(2)}</td>
                     </tr>
                   ))}
               </tbody>

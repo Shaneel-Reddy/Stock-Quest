@@ -200,11 +200,11 @@ export default function Portfolio() {
                 <tr key={index}>
                   <td>{asset.stockName}</td>
                   <td>{asset.ticker}</td>
-                  <td>{asset.buyPrice}</td>
-                  <td>{asset.currentPrice}</td>
-                  <td>{asset.gainPercent}</td>
+                  <td>{asset.buyPrice.toFixed(2)}</td>
+                  <td>{asset.currentPrice.toFixed(2)}</td>
+                  <td>{asset.gainPercent.toFixed(2)}</td>
                   <td>{asset.quantity}</td>
-                  <td>{asset.value}</td>
+                  <td>{asset.value.toFixed(2)}</td>
                   <td>
                     <button
                       className="edit-asset"
@@ -245,7 +245,7 @@ export default function Portfolio() {
         <div className="total-value-box">
           <h2>My Portfolio</h2>
           <h2>Total Value</h2>
-          <h3>${totalValue}</h3>
+          <h3>${totalValue.toFixed(2)}</h3>
         </div>
         <div className="buy-stocks" onClick={handleAddAssetClick}>
           <h2>Invest Stocks</h2>
