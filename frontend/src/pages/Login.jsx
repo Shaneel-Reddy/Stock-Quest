@@ -50,7 +50,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:7000/auth/signin",
+        "http://3.110.166.85:7000/auth/signin",
         formData
       );
       console.log(response.data);

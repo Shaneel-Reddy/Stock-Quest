@@ -13,7 +13,7 @@ export default function Dashboard() {
   const [totalValue, setTotalValue] = useState(0);
   const [assets, setAssets] = useState([]);
 
-  const API_BASE_URL = "http://localhost:7000/api/portfolio";
+  const API_BASE_URL = "http://3.110.166.85:7000/api/portfolio";
   const token = localStorage.getItem("jwt");
 
   const handleSymbolChange = (e) => {
