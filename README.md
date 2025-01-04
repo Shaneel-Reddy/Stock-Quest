@@ -4,7 +4,9 @@
 
 ---
 
-Website Demo Link : https://drive.google.com/file/d/1_hOu3Gn75tITtK8kYX848IP3WWJOF5SF/view?usp=drive_link
+Website Demo Link : https://drive.google.com/file/d/1_hOu3Gn75tITtK8kYX848IP3WWJOF5SF/view?usp=drive_link 
+
+Website Deployed Link : http://stockquest.s3-website.ap-south-1.amazonaws.com 
 
 ---
 
@@ -23,11 +25,23 @@ Website Demo Link : https://drive.google.com/file/d/1_hOu3Gn75tITtK8kYX848IP3WWJ
 
 ## Technologies Used
 
-- **Frontend**: ReactJS,Bootstrap,Html,CSS,Javascript
-- **Backend**: Spring Boot (Java)
-- **Database**: MySQL
-- **Cloud Services**: AWS (EC2, S3, RDS)
-- **API Integration**: Finnhub API, Twelvedata API, Gemini API, NewsAPI 
+* [![Spring Boot][SpringBoot]][SpringBoot-url]
+* [![JUnit][JUnit]][JUnit-url] -[Testing Frameworks]
+* [![Mockito][Mockito]][Mockito-url] -[Testing Frameworks]
+* [![React][React.js]][React-url]
+* [![MySQL][MySQL]][MySQL-url]
+* [![HTML5][HTML5]][HTML5-url]
+* [![CSS3][CSS3]][CSS3-url]
+* [![JavaScript][JavaScript]][JavaScript-url]
+* [![Chart.js][Chart.js]][Chart.js-url]
+* [![AWS EC2][AWS EC2]][AWS-EC2-url]
+* [![AWS RDS][AWS RDS]][AWS-RDS-url]
+* [![AWS S3][AWS S3]][AWS-S3-url]
+* [![JWT][JWT.io]][JWT-url]
+* [![Axios][Axios]][Axios-url]
+
+
+
 
 ---
 
@@ -162,3 +176,35 @@ Frontend Not Loading: Ensure the S3 bucket has the correct permissions for publi
 API Not Responding: Verify that the Spring Boot application is running and accessible on the correct port.
 
 ---
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[SpringBoot]: https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat&logo=springboot&logoColor=white
+[SpringBoot-url]: https://spring.io/projects/spring-boot
+[React.js]: https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black
+[React-url]: https://reactjs.org/
+[AWS EC2]: https://img.shields.io/badge/AWS%20EC2-FF9900?style=flat&logo=amazon-aws&logoColor=white
+[AWS-EC2-url]: https://aws.amazon.com/ec2/
+[AWS RDS]: https://img.shields.io/badge/AWS%20RDS-527FFF?style=flat&logo=amazon-aws&logoColor=white
+[AWS-RDS-url]: https://aws.amazon.com/rds/
+[AWS S3]: https://img.shields.io/badge/AWS%20S3-569A31?style=flat&logo=amazon-aws&logoColor=white
+[AWS-S3-url]: https://aws.amazon.com/s3/
+[MySQL]: https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white
+[MySQL-url]: https://www.mysql.com/
+[JWT.io]: https://img.shields.io/badge/JWT-000000?style=flat&logo=json-web-tokens&logoColor=white
+[JWT-url]: https://jwt.io/
+[Axios]: https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white
+[Axios-url]: https://axios-http.com/
+[Chart.js]: https://img.shields.io/badge/Chart.js-FF6384?style=flat&logo=chartjs&logoColor=white
+[Chart.js-url]: https://www.chartjs.org/
+[HTML5]: https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white
+[HTML5-url]: https://developer.mozilla.org/en-US/docs/Web/HTML
+[CSS3]: https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white
+[CSS3-url]: https://developer.mozilla.org/en-US/docs/Web/CSS
+[JavaScript]: https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black
+[JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+[JUnit]: https://img.shields.io/badge/JUnit-25A162?style=flat&logo=junit&logoColor=white
+[JUnit-url]: https://junit.org/junit5/
+[Mockito]: https://img.shields.io/badge/Mockito-8A6E36?style=flat&logo=mockito&logoColor=white
+[Mockito-url]: https://site.mockito.org/
+
