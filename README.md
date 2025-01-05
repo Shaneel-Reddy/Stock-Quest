@@ -36,7 +36,6 @@ Website Deployed Link : http://stockquest.s3-website.ap-south-1.amazonaws.com
 * [![JavaScript][JavaScript]][JavaScript-url]
 * [![Chart.js][Chart.js]][Chart.js-url]
 * [![AWS EC2][AWS EC2]][AWS-EC2-url]
-* [![AWS RDS][AWS RDS]][AWS-RDS-url]
 * [![AWS S3][AWS S3]][AWS-S3-url]
 * [![JWT][JWT.io]][JWT-url]
 * [![Axios][Axios]][Axios-url]
