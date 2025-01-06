@@ -51,7 +51,7 @@ Ensure the following software is installed on your local machine:
 
 - **Java 17+** (for backend)
 - **Node.js** (latest version recommended)
-- **MySQL** (or AWS RDS instance for production)
+- **MySQL** 
 - **Maven** (for backend build)
 - **Git** (for version control)
 
@@ -158,11 +158,6 @@ Step 1: Build the production-ready frontend:
 npm run build
 ```
 Step 2: Upload the contents of the build directory to your S3 bucket configured for static website hosting.
-### 3. Deploying the Database (AWS RDS)
-To deploy the MySQL database:
-
-Create an RDS instance (e.g., db.t4g.micro).
-Configure your Spring Boot application to connect to the RDS endpoint.
 
 --- 
 
