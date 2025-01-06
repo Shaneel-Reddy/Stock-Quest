@@ -50,7 +50,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "http://3.110.166.85:7000/auth/signin",
+        "http://13.233.159.192:7000/auth/signin",
         formData
       );
       console.log(response.data);
@@ -74,7 +74,7 @@ export default function Login() {
             <input
               type="text"
               id="email"
-              placeholder="Enter Email or Phone Number"
+              placeholder="Enter Email"
               ref={emailRef}
               required
             />

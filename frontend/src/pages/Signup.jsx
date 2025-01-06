@@ -66,7 +66,7 @@ export default function Signup() {
 
     try {
       const response = await axios.post(
-        "http://3.110.166.85:7000/auth/signup",
+        "http://13.233.159.192:7000/auth/signup",
         formData
       );
       localStorage.setItem("jwt", response.data.jwt);

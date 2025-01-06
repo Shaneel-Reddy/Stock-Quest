@@ -16,7 +16,7 @@ export default function Portfolio() {
   const [ticker, setTicker] = useState("");
   const [editingIndex, setEditingIndex] = useState(null);
 
-  const API_BASE_URL = "http://3.110.166.85:7000/api/portfolio";
+  const API_BASE_URL = "http://13.233.159.192:7000/api/portfolio";
   const token = localStorage.getItem("jwt");
 
   useEffect(() => {
